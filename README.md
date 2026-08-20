@@ -1,3 +1,5 @@
+
+```PowerShell
 # WinGet source
 winget source remove winget
 winget source add winget https://cdn.winget.microsoft.com/cache
@@ -41,3 +43,14 @@ Set-ItemProperty `
 
 Restart-Service sshd
 Get-Service sshd
+
+
+```
+```PowerShell
+$secret = Read-Host "Tailscale auth key"
+$secret | age -p -o .\secrets\tailscale-auth.age
+Remove-Variable secret
+
+$env:TAILSCALE_AUTH_KEY = (age -d .\secrets\tailscale-auth.age).Trim()
+
+```
